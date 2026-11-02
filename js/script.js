@@ -108,6 +108,7 @@ cartes.forEach((carte) => {
         }
     });
 });
+});
 
 document.addEventListener("DOMContentLoaded", () => {
     const languageButton = document.querySelector("#language-toggle");

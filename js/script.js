@@ -85,13 +85,13 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
                 await navigator.clipboard.writeText(code);
 
-                bouton.textContent = "Code copié !";
+                bouton.textContent = currentLanguage === "fr" ? "Code copié !" : "Code copied!";
 
                 setTimeout(() => {
                     bouton.textContent = "Copier le code";
                 }, 1500);
             } catch (erreur) {
-                bouton.textContent = "Copie impossible";
+                bouton.textContent = currentLanguage === "fr" ? "Copie impossible" : "Copy failed";
 
                 setTimeout(() => {
                     bouton.textContent = "Copier le code";

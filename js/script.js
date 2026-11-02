@@ -72,32 +72,40 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Copier le code hexadécimal
-    cartes.forEach((carte) => {
-        const bouton = carte.querySelector("button");
-        const paragraphe = carte = carte.querySelector("p");
+   // Copier le code hexadécimal
+cartes.forEach((carte) => {
+    const bouton = carte.querySelector("button");
+    const paragraphe = carte.querySelector("p");
 
-        if (!bouton || !paragraphe) return;
+    if (!bouton || !paragraphe) return;
 
-        bouton.addEventListener("click", async () => {
-            const code = paragraphe.textContent.trim();
+    bouton.addEventListener("click", async () => {
+        const code = paragraphe.textContent.trim();
 
-            try {
-                await navigator.clipboard.writeText(code);
+        // Récupérer la langue actuelle
+        const langue = localStorage.getItem("luxen-language") || "fr";
 
-                bouton.textContent = currentLanguage === "fr" ? "Code copié !" : "Code copied!";
+        // Définir les textes selon la langue
+        const texteCopie = langue === "fr" ? "Code copié !" : "Code copied!";
+        const texteErreur = langue === "fr" ? "Copie impossible" : "Copy failed";
+        const texteInitial = langue === "fr" ? "Copier le code" : "Copy code";
 
-                setTimeout(() => {
-                    bouton.textContent = "Copier le code";
-                }, 1500);
-            } catch (erreur) {
-                bouton.textContent = currentLanguage === "fr" ? "Copie impossible" : "Copy failed";
+        try {
+            await navigator.clipboard.writeText(code);
 
-                setTimeout(() => {
-                    bouton.textContent = "Copier le code";
-                }, 2000);
-            }
-        });
+            bouton.textContent = texteCopie;
+
+            setTimeout(() => {
+                bouton.textContent = texteInitial;
+            }, 1500);
+
+        } catch (erreur) {
+            bouton.textContent = texteErreur;
+
+            setTimeout(() => {
+                bouton.textContent = texteInitial;
+            }, 2000);
+        }
     });
 });
 
